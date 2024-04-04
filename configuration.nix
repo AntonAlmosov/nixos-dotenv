@@ -4,7 +4,6 @@
     ./hardware-configuration.nix
     ./networking.nix # generated at runtime by nixos-infect
     ./programs/zsh
-    ./programs/git
   ];
 
   # Global Packages
@@ -13,6 +12,7 @@
     rustc
     cargo
     unzip
+    nodePackages.pnpm
   ];
 
   environment.variables.EDITOR = "nvim";
@@ -23,10 +23,9 @@
     enable = true;
   };
 
-
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
-  networking.hostName = "workstation-4v16gb";
+  networking.hostName = "anton-almosov-workstation";
   networking.domain = "";
   services.openssh.enable = true;
   users.users.root.openssh.authorizedKeys.keys = [ ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEatcCgSGZZ/MERQJJftRZuHCe0gK4RGqCXiPFrB+6S'' ];
@@ -38,6 +37,11 @@
     snvim = "sudo -E nvim";
   };
 
+  # Allowed ports
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 80 443 22 3000 ];
+  };
 
   # Setting up the user
   users.defaultUserShell = pkgs.zsh;
@@ -57,6 +61,14 @@
     imports = [
       ./programs
     ];
+
+
+    programs.git = {
+      enable = true;
+      userName = "Anton Almosov";
+      userEmail = "almosoww@gmail.com";
+    };
+
     home.stateVersion = "23.11";
   };
 }
