@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
     ./networking.nix # generated at runtime by nixos-infect
     ./programs/zsh
+    ./programs/node
   ];
 
   # Global Packages
@@ -12,7 +13,7 @@
     rustc
     cargo
     unzip
-    nodePackages.pnpm
+    ripgrep
   ];
 
   environment.variables.EDITOR = "nvim";

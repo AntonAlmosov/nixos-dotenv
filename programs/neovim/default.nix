@@ -6,7 +6,7 @@
   };
 
   home.file."./.config/nvim/" = {
-    source = ./nvim;
+    source = ./kickstart;
     recursive = true;
   };
 }

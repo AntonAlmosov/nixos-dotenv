@@ -15,9 +15,10 @@
     };
 
     shellInit = ''
-      export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent
-      export NIX_LD=$(nix eval --impure --raw --expr 'let pkgs = import <nixpkgs> {}; NIX_LD = pkgs.lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker"; in NIX_LD')
-      eval `ssh-agent`
+      [[ -o interactive ]] || exit 0
+        export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent
+        export NIX_LD=$(nix eval --impure --raw --expr 'let pkgs = import <nixpkgs> {}; NIX_LD = pkgs.lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker"; in NIX_LD')
+        eval `ssh-agent`
     '';
   };
 }
